@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="?actionBarSize">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:id="@+id/series_search_input"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:background="@color/colorText"
+        android:hint="@string/series_search_hint"
+        android:inputType="text"
+        android:imeOptions="actionGo"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/search_results_recyclerview"
+            android:clipToPadding="false"
+            android:scrollbarStyle="outsideOverlay"
+            />
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/search_progressbar"
+            style="@android:style/Widget.ProgressBar.Inverse"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/search_error_textview"
+            android:background="@color/colorPrimaryDark"
+            android:textColor="@color/colorText"
+            android:textSize="@dimen/headline_text_size"
+            android:gravity="center_horizontal"
+            android:text="@string/error_get_response"
+            />
+
+    </RelativeLayout>
+        </LinearLayout>

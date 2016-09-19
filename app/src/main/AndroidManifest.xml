@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.zacmckenney.comicnexus">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.zacmckenney.comicnexus.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.zacmckenney.comicnexus.SeriesSearchActivity"
+            android:label="Series Search"
+            android:parentActivityName="com.zacmckenney.comicnexus.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.zacmckenney.comicnexus.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.zacmckenney.comicnexus.NewComicsActivity"
+            android:label="This Weeks Comics"
+            android:parentActivityName="com.zacmckenney.comicnexus.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.zacmckenney.comicnexus.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.zacmckenney.comicnexus.ComicDetailActivity"
+            android:label="Comic Detail"
+            android:parentActivityName="com.zacmckenney.comicnexus.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.zacmckenney.comicnexus.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.zacmckenney.comicnexus.WebViewActivity"
+            android:logo="@drawable/ic_logo"
+            android:parentActivityName="com.zacmckenney.comicnexus.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.zacmckenney.comicnexus.MainActivity" />
+        </activity>
+
+        <provider
+            android:name="com.zacmckenney.comicnexus.data.generated.ComicProvider"
+            android:authorities="com.zacmckenney.comicnexus.data.ComicProvider"
+            android:exported="false" />
+
+        <receiver android:name="com.zacmckenney.comicnexus.widget.ComicWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.zacmckenney.comicnexus.ACTION_DATA_UPDATED" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/comic_widget_info" />
+        </receiver>
+
+        <service android:name="com.zacmckenney.comicnexus.widget.ComicWidgetRemoteViewsService"
+            android:enabled="@bool/widget_detail_enabled"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+    </application>
+
+</manifest>

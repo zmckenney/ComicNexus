@@ -1,0 +1,43 @@
+<resources>
+    <dimen name="nav_header_vertical_spacing">16dp</dimen>
+    <dimen name="nav_header_height">140dp</dimen>
+    <dimen name="nav_header_title_size">15sp</dimen>
+
+    <dimen name="logo_padding">7dp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="activity_top_margin">100dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="headline_text_size">20sp</dimen>
+
+    <dimen name="week_headline_height">100dp</dimen>
+    <dimen name="grid_column_width">160dp</dimen>
+
+    <dimen name="detail_category_padding">5dp</dimen>
+    <dimen name="detail_item_margin">10dp</dimen>
+    <dimen name="detail_button_margin">10dp</dimen>
+    <dimen name="detail_description_padding">5dp</dimen>
+
+    <dimen name="grid_padding">0dp</dimen>
+    <dimen name="grid_margin">0dp</dimen>
+    <dimen name="grid_price_padding">7dp</dimen>
+
+    <dimen name="search_result_title_size">17sp</dimen>
+    <dimen name="search_result_subtext_size">15sp</dimen>
+
+    <dimen name="search_layout_horizontal_padding">10dp</dimen>
+    <dimen name="search_layout_vertical_padding">7dp</dimen>
+
+    <dimen name="widget_layout_padding">8dp</dimen>
+    <dimen name="widget_title_padding">8dp</dimen>
+    <dimen name="widget_title_size">24sp</dimen>
+    <dimen name="widget_subtext_size">18sp</dimen>
+
+    <!--
+Refer to App Widget Documentation for margin information
+http://developer.android.com/guide/topics/appwidgets/index.html#CreatingLayout
+    -->
+    <dimen name="widget_margin">8dp</dimen>
+</resources>
