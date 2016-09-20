@@ -6,7 +6,7 @@ android {
         config {
             keyAlias 'UdacityFinalSubmission'
             keyPassword 'finalfinished'
-            storeFile file('/Users/Zac/StudioProjects/udacitysubmission.jks')
+            storeFile file('keystores/udacitysubmission.jks')
             storePassword 'finalfinished'
         }
     }
