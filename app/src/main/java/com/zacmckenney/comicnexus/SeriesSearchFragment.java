@@ -56,7 +56,7 @@ public class SeriesSearchFragment extends Fragment {
     private static final String ENDPOINT_SUFFIX = "&orderBy=-startYear&limit=100";
 
     //TODO add the MARVEL API KEY BELOW
-    private final String API_KEY = "ENTER_KEY_HERE";
+    private final String API_KEY = "ENTER_API_KEY_HERE";
     private final String PUBLIC_KEY = "644ca5a41a32e5ba84cd6ce566261ddb";
     private String timestamp;
     private String authorizationString;

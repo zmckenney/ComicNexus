@@ -57,7 +57,7 @@ public class NewComicsFragment extends Fragment{
     public static final String ENDPOINT_THIS_WEEK = "http://gateway.marvel.com/v1/public/comics?formatType=comic&noVariants=true&dateDescriptor=thisWeek&limit=100";
 
     //TODO ADD THE MARVEL API_KEY_BELOW
-    private final String API_KEY = "ENTER_KEY_HERE";
+    private final String API_KEY = "ENTER_API_KEY_HERE";
     private final String PUBLIC_KEY = "644ca5a41a32e5ba84cd6ce566261ddb";
     private String timestamp;
     private String authorizationKey;
