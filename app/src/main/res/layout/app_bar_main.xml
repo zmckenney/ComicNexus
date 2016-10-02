@@ -33,6 +33,7 @@
     <fragment
         android:id="@+id/fragment_covers"
         android:name="com.zacmckenney.comicnexus.NewComicsFragment"
+        android:layout_marginTop="?actionBarSize"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 

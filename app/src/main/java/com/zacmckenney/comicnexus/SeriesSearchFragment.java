@@ -5,7 +5,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -55,8 +54,7 @@ public class SeriesSearchFragment extends Fragment {
     private static final String ENDPOINT_PREFIX = "http://gateway.marvel.com/v1/public/series?titleStartsWith=";
     private static final String ENDPOINT_SUFFIX = "&orderBy=-startYear&limit=100";
 
-    //TODO add the MARVEL API KEY BELOW
-    private final String API_KEY = "ENTER_API_KEY_HERE";
+    private final String API_KEY = BuildConfig.API_KEY;
     private final String PUBLIC_KEY = "644ca5a41a32e5ba84cd6ce566261ddb";
     private String timestamp;
     private String authorizationString;
@@ -86,7 +84,7 @@ public class SeriesSearchFragment extends Fragment {
     private final Response.Listener<String> onComicsLoaded = new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
-            Log.v("#@#@NewComicsFrag", response);
+//            Log.v("#@#@NewComicsFrag", response);
             searchResultList = gson.fromJson(response, SearchResult[].class);
 
             recyclerViewAdapter = new RecyclerViewAdapter(searchResultList);
@@ -102,7 +100,6 @@ public class SeriesSearchFragment extends Fragment {
         public void onErrorResponse(VolleyError error) {
             searchProgress.setVisibility(View.GONE);
             searchErrorTextview.setVisibility(View.VISIBLE);
-            Log.v("#@@#NewCOmicsFrag", error.toString());
         }
     };
 

@@ -11,7 +11,6 @@ import android.os.RemoteException;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.transition.Slide;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,12 +55,10 @@ public class NewComicsFragment extends Fragment{
     private static final String ENDPOINT_NEXT_WEEK = "http://gateway.marvel.com/v1/public/comics?formatType=comic&noVariants=true&dateDescriptor=nextWeek&limit=100";
     public static final String ENDPOINT_THIS_WEEK = "http://gateway.marvel.com/v1/public/comics?formatType=comic&noVariants=true&dateDescriptor=thisWeek&limit=100";
 
-    //TODO ADD THE MARVEL API_KEY_BELOW
-    private final String API_KEY = "ENTER_API_KEY_HERE";
+    private final String API_KEY = BuildConfig.API_KEY;
     private final String PUBLIC_KEY = "644ca5a41a32e5ba84cd6ce566261ddb";
     private String timestamp;
     private String authorizationKey;
-
 
     //Volley and GSON items
     private RequestQueue requestQueue;
@@ -172,7 +169,7 @@ public class NewComicsFragment extends Fragment{
         if (cursorThisWeek.moveToFirst()) {
             newComicArrayList.clear();
             comicGridAdapter.clear();
-            while (cursorThisWeek.isAfterLast() == false) {
+            while (!cursorThisWeek.isAfterLast()) {
                 NewComic cursorNewComic = new NewComic();
                 cursorNewComic.setId(cursorThisWeek.getInt(INDEX_ID));
                 cursorNewComic.setTitle(cursorThisWeek.getString(INDEX_TITLE));
@@ -194,19 +191,18 @@ public class NewComicsFragment extends Fragment{
     private final Response.Listener<String> onComicsLoaded = new Response.Listener<String>() {
         @Override
         public void onResponse(String response) {
-            Log.v("#@#@NewComicsFrag", response);
 
             contentMainError.setVisibility(View.GONE);
             newComicList = gson.fromJson(response, NewComic[].class);
 
             ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
             if (whatWeek == THIS_WEEK) {
-                for (int i = 0; i < newComicList.length; i++) {
-                    batchOperations.add(Utils.buildComicBatchOperation(newComicList[i], THIS_WEEK, dayOfYear));
+                for (NewComic newComic : newComicList) {
+                    batchOperations.add(Utils.buildComicBatchOperation(newComic, THIS_WEEK, dayOfYear));
                 }
             } else if (whatWeek == NEXT_WEEK){
-                for (int i = 0; i < newComicList.length; i++) {
-                    batchOperations.add(Utils.buildComicBatchOperation(newComicList[i], NEXT_WEEK, dayOfYear));
+                for (NewComic newComic : newComicList) {
+                    batchOperations.add(Utils.buildComicBatchOperation(newComic, NEXT_WEEK, dayOfYear));
                 }
             }
             try {
@@ -263,7 +259,7 @@ public class NewComicsFragment extends Fragment{
                 }
             }
             cursorThisWeek.close();
-            Log.v("#@@#NewCOmicsFrag", error.toString());
+//            Log.v("#@@#NewCOmicsFrag", error.toString());
         }
     };
 
@@ -281,8 +277,8 @@ public class NewComicsFragment extends Fragment{
 
         if (whatWeek == -1) {
             fetchThisWeeksComics();
-            whatWeek = 0;
-        } else if (whatWeek == 1){
+            whatWeek = THIS_WEEK;
+        } else if (whatWeek == NEXT_WEEK){
             if (comicWeekReleaseTextview != null) {
                 comicWeekReleaseTextview.setText(R.string.next_week_comics);
             }

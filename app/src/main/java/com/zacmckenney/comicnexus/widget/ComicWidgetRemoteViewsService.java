@@ -14,6 +14,7 @@ import android.widget.RemoteViewsService;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.zacmckenney.comicnexus.BuildConfig;
 import com.zacmckenney.comicnexus.NewComicsFragment;
 import com.zacmckenney.comicnexus.R;
 import com.zacmckenney.comicnexus.data.ComicColumns;
@@ -67,9 +68,7 @@ public class ComicWidgetRemoteViewsService extends RemoteViewsService {
             long identityToken;
 
             private final String PUBLIC_KEY = "644ca5a41a32e5ba84cd6ce566261ddb";
-
-            //TODO add the MARVEL API KEY BELOW
-            private final String API_KEY = "ENTER_API_KEY_HERE";
+            private final String API_KEY = BuildConfig.API_KEY;
             private String timestamp;
             private String authorizationString;
 
@@ -127,7 +126,7 @@ public class ComicWidgetRemoteViewsService extends RemoteViewsService {
 
                         // Read the input stream into a String
                         InputStream inputStream = urlConnection.getInputStream();
-                        StringBuffer buffer = new StringBuffer();
+                        StringBuilder buffer = new StringBuilder();
                         if (inputStream == null) {
                             // Nothing to do.
                         }
@@ -143,7 +142,7 @@ public class ComicWidgetRemoteViewsService extends RemoteViewsService {
                         }
 
                         comicJsonString = buffer.toString();
-                        Log.v("@@@JSONSTRING", "JSON string : " + comicJsonString);
+//                        Log.v("@@@JSONSTRING", "JSON string : " + comicJsonString);
 
 
                     } catch (IOException e) {
@@ -165,9 +164,10 @@ public class ComicWidgetRemoteViewsService extends RemoteViewsService {
 
                     ArrayList<ContentProviderOperation> batchOperations = new ArrayList<>();
 
-                    for (int i = 0; i < newComicList.length; i++) {
-                        batchOperations.add(Utils.buildComicBatchOperation(newComicList[i], THIS_WEEK, dayOfYear));
+                    for (NewComic newComic : newComicList) {
+                        batchOperations.add(Utils.buildComicBatchOperation(newComic, THIS_WEEK, dayOfYear));
                     }
+
                     try {
                         //No need to keep the comics on update - moving next weeks comics to this week would work but in case of changes I think its best to repull the data
                         getBaseContext().getContentResolver().delete(ComicProvider.Comics.COMICS_URI, ComicColumns.WEEK + " LIKE ?", new String[]{String.valueOf(THIS_WEEK)});

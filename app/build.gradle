@@ -1,14 +1,22 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 
+
+Properties apiProperties = new Properties()
+File apiKeyFile = file('apikeys.properties')
+
+//see if we have an apikeys.properties file, if yes then pull the keys, if no then throw error
+//This method learned from http://samwolfand.com/blog/2016/5/6/hiding-api-keys-with-gradle
+if (apiKeyFile.exists()){
+    apiProperties.load(apiKeyFile.newDataInputStream())
+} else if (System.env.API_KEY != null){
+    apiProperties.setProperty("marvelAPIKey", System.env.API_KEY)
+} else {
+    throw new GradleException("Missing an apikeys.properties file, please add this file")
+}
+
 android {
     signingConfigs {
-        config {
-            keyAlias 'UdacityFinalSubmission'
-            keyPassword 'finalfinished'
-            storeFile file('keystores/udacitysubmission.jks')
-            storePassword 'finalfinished'
-        }
     }
     compileSdkVersion 24
     buildToolsVersion "24.0.0"
@@ -16,14 +24,19 @@ android {
         applicationId "com.zacmckenney.comicnexus"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.config
+//            signingConfig signingConfigs.config
+
+        }
+
+        buildTypes.each {
+            it.buildConfigField('String', 'API_KEY', apiProperties.getProperty('marvelAPIKey'))
         }
     }
 }

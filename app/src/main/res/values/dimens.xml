@@ -11,6 +11,7 @@
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="headline_text_size">20sp</dimen>
+    <dimen name="headline_padding_vertical">4dp</dimen>
 
     <dimen name="week_headline_height">100dp</dimen>
     <dimen name="grid_column_width">160dp</dimen>
